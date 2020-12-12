@@ -13,3 +13,7 @@ The following files, needs to be in the same directory than   *git_fetch_last_re
 ### compile_pinta.sh
 
 Run this script to compile, and install the last release of Pinta (V 1.7).
+
+#### Raspberry Pi, tips and tricks
+
+https://www.facebook.com/groups/409808106880222/permalink/413905369803829/
