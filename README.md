@@ -10,10 +10,26 @@ For help:
 
 The following files, needs to be in the same directory than   *git_fetch_last_release.sh*
 
-### compile_pinta.sh
+### 1.0 compile_pinta.sh
 
 Run this script to compile, and install the last release of Pinta (V 1.7).
 
-#### Raspberry Pi, tips and tricks
+#### 1.0.1 GitHub repository
 
-https://www.facebook.com/groups/409808106880222/permalink/413905369803829/
+<https://github.com/PintaProject/Pinta>
+
+#### 1.0.2 Raspberry Pi, tips and tricks
+
+<https://www.facebook.com/groups/409808106880222/permalink/413905369803829/>
+
+### 2.0 compile_dosbox_x.sh
+
+Run this script to compile, ans install the las release of dosbox-x.
+
+#### 2.0.1 GitHub repository
+
+<https://github.com/joncampbell123/dosbox-x>
+
+#### 2.0.2 Raspberry Pi, tips and tricks
+
+<https://www.facebook.com/groups/409808106880222/permalink/418389506022082/>
