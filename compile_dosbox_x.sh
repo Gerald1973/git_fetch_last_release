@@ -2,7 +2,7 @@
 # echo "********************************************************************************"
 # echo "* Compile DOSBOX X last release                                                *"
 # echo "********************************************************************************"
-. ./git_fetch_last_release.sh -r 'https://github.com/joncampbell123/dosbox-x.git' -t 'dosbox-x-v0.83.8'
+. ./git_fetch_last_release.sh -r 'https://github.com/joncampbell123/dosbox-x.git' -t 'dosbox-x-v0.83.10'
 if [ $? = 0 ]; then
   cd $FETCHING_DIRECTORY 
 	sudo apt -y install automake libncurses-dev nasm libsdl-net1.2-dev \

@@ -33,3 +33,11 @@ Run this script to compile, ans install the las release of dosbox-x.
 #### 2.0.2 Raspberry Pi, tips and tricks
 
 <https://www.facebook.com/groups/409808106880222/permalink/418389506022082/>
+
+### 3.0 compile_amiberry.sh
+
+Run this script to clone and compile the last version of Amiberry. An amiga emulator.
+
+### 3.0.1 GitHub repository
+
+<https://github.com/midwan/amiberry>
