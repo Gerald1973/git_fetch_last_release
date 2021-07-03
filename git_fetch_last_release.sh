@@ -34,19 +34,18 @@ _help() {
 }
 
 _checkout(){
-  cd $FETCHING_DIRECTORY
-  git checkout $TAG;
-  if [ ! $? = 0 ]; then
+  cd ${FETCHING_DIRECTORY}
+  git checkout ${TAG};
+  if [[ ! ${?} == 0 ]]; then
     echo "The checkout of the tag failed." 1>&2;
     exit 1;
   fi
 }
 
 cd
-MY_DIRECTORY=`pwd`
-GIT=git
+GIT="git"
 while getopts :r:t:d:h opt; do
-  case $opt in
+  case ${opt} in
     r)
       GIT_REPOSITORY=$OPTARG;;
     t)
@@ -59,31 +58,31 @@ while getopts :r:t:d:h opt; do
       _help;;
   esac
 done
-if [ ! -z $GIT_REPOSITORY ]; then
-  GIT_DIRECTORY=`echo "${GIT_REPOSITORY##*/}"`
-  GIT_DIRECTORY=`echo "${GIT_DIRECTORY%.git}"` 
-  if [ -z $TAG ]; then
+if [[ ! -z ${GIT_REPOSITORY} ]]; then
+  GIT_DIRECTORY=$(echo "${GIT_REPOSITORY##*/}")
+  GIT_DIRECTORY=$(echo "${GIT_DIRECTORY%.git}") 
+  if [[ -z $TAG ]]; then
     TAGS=`git ls-remote -t --refs $GIT_REPOSITORY`
     TAG=`echo "${TAGS##*/}"`
   fi
-  FETCHING_DIRECTORY="$MY_DIRECTORY/$GIT/$GIT_DIRECTORY"
-  printf 'Git remote repository : %s\n' $GIT_REPOSITORY
-  printf 'The slected tag is    : %s\n' $TAG
-  printf 'Git directory         : %s\n' $GIT
-  printf 'Fetching directory    : %s\n' $FETCHING_DIRECTORY
-  if [ ! -d $GIT ]; then
+  FETCHING_DIRECTORY="${HOME}/${GIT}/${GIT_DIRECTORY}"
+  printf 'Git remote repository : %s\n' ${GIT_REPOSITORY}
+  printf 'The slected tag is    : %s\n' ${TAG}
+  printf 'Git directory         : %s\n' ${GIT}
+  printf 'Fetching directory    : %s\n' ${FETCHING_DIRECTORY}
+  if [[ ! -d ${GIT} ]]; then
     printf "Creation of the %s directory.\n"
-    mkdir $MY_DIRECTORY/$GIT
-    if [ ! $? = 0 ]; then
+    mkdir ${HOME}/${GIT}
+    if [[ ! ${?} = 0 ]]; then
       echo "The creation of the %GIT directory is not possible" 1>&2
       exit 1
     fi
   fi
-  cd $MY_DIRECTORY/$GIT
-  if [ ! -d $FETCHING_DIRECTORY ]; then 
-    git clone $GIT_REPOSITORY
-    if [ ! $? = 0 ]; then
-      echo "The cloning of $GIT_REPOSITORY failed." 1>&2; 
+  cd ${HOME}/${GIT}
+  if [[ ! -d ${FETCHING_DIRECTORY} ]]; then 
+    git clone ${GIT_REPOSITORY}
+    if [[ ! ${?} = 0 ]]; then
+      echo "The cloning of ${GIT_REPOSITORY} failed." 1>&2; 
       exit 1;
     fi
   fi 

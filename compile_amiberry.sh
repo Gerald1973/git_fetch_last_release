@@ -4,33 +4,38 @@ echo "**************************************************************************
 echo "* Compile the latest release of Amiberry                                       *"
 echo "********************************************************************************"
 #Backup configuration files
-cd
-AMIBERRY_CONF_DIRECTORY=`pwd`/amiberry/conf
-AMIBERRY_CONF_BACKUP=`pwd`/amiberryconfbackup
-if [ -d $AMIBERRY_CONF_DIRECTORY ]
+CURRENT_DIR=$(pwd)
+cd ${HOME}
+AMIBERRY_CONF_BACKUP="${HOME}/amiberryconfbackup"
+AMIBERRY_CONF_DIRECTORY="${HOME}/amiberry/conf"
+FIRMWARES_ORIGIN="/mnt/data_02/emulators/firmware/amiga/KS-ROMs"
+GIT_REPOSITORY="https://github.com/midwan/amiberry.git"
+if [[ -d ${AMIBERRY_CONF_DIRECTORY} ]]
 then 
-  mkdir amiberryconfbackup
-  cp -v $AMIBERRY_CONF_DIRECTORY/* $AMIBERRY_CONF_BACKUP
+  mkdir ${AMIBERRY_CONF_BACKUP}
+  cp -v ${AMIBERRY_CONF_DIRECTORY}/* ${AMIBERRY_CONF_BACKUP}
 fi
-GIT_REPOSITORY=https://github.com/midwan/amiberry.git
-FIRMWARES_ORIGIN=/mnt/kodi_d/emulators/firmware/amiga/KS-ROMs
-. ./git/git_fetch_last_release/git_fetch_last_release.sh
-if [ $? = 0 ]
+cd ${CURRENT_DIR}
+. ./git_fetch_last_release.sh
+if [[ ${?} == 0 ]]
 then
+  cd ${FETCHING_DIRECTORY}
   sudo apt-get -y install libsdl2-dev libsdl2-ttf-dev libsdl2-image-dev libxml2-dev libflac-dev libmpg123-dev libpng-dev libmpeg2-4-dev
-  cd $FETCHING_DIRECTORY
-  make -j4 PLATFORM=rpi4-sdl2
-  if [ $? = 0 ]
+  make -j2 PLATFORM=rpi4-sdl2
+  if [[ ${?} == 0 ]]
   then
-    if [ -d $FIRMWARES_ORIGIN ]
+    echo "Remove the previous amiberry in ${HOME}/${GIT_DIRECTORY}"
+    rm -rf ${HOME}/${GIT_DIRECTORY}
+    if [[ -d ${FIRMWARES_ORIGIN} ]]
     then
-      cp $FIRMWARES_ORIGIN/* $SOURCE_DIRECTORY/kickstarts
+      cp ${FIRMWARES_ORIGIN}/* ${FETCHING_DIRECTORY}/kickstarts
     fi
-    rm -rf $SOURCE_DIRECTORY/src
-    mv -v $SOURCE_DIRECTORY $MY_DIRECTORY
-    cd $MY_DIRECTORY/$GIT_DIRECTORY
+    rm -rf ${FETCHING_DIRECTORY}/src
+    mv -v ${FETCHING_DIRECTORY} ${HOME}
+    cd ${HOME} 
     #Restore configuration files
-    cp -v $AMIBERRY_CONF_BACKUP/* $AMIBERRY_CONF_DIRECTORY
-    ./amiberry
+    cp -v ${AMIBERRY_CONF_BACKUP}/* ${AMIBERRY_CONF_DIRECTORY}
+    cd ${HOME}/amiberry
+    ./amiberry 
   fi
 fi
